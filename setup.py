@@ -38,6 +38,7 @@ from distutils import core as _core
 from distutils import extension as _extension
 import setuptools
 from setuptools.command import egg_info
+import six
 
 # Redirect the manifest template from MANIFEST.in to PYTHON-MANIFEST.in.
 egg_info.manifest_maker.template = 'PYTHON-MANIFEST.in'
@@ -103,7 +104,11 @@ if "linux" in sys.platform:
   LDFLAGS += ('-Wl,-wrap,memcpy',)
 if "linux" in sys.platform or "darwin" in sys.platform:
   CFLAGS += ('-fvisibility=hidden',)
-  DEFINE_MACROS += (('PyMODINIT_FUNC', '__attribute__((visibility ("default"))) void'),)
+
+  pymodinit_type = 'PyObject*' if six.PY3 else 'void'
+
+  pymodinit = '__attribute__((visibility ("default"))) {}'.format(pymodinit_type)
+  DEFINE_MACROS += (('PyMODINIT_FUNC', pymodinit),)
 
 
 def cython_extensions(module_names, extra_sources, include_dirs,
