@@ -108,6 +108,8 @@ class CapturePipe(object):
     Arguments:
       value (str): What to write to the original file.
     """
+    if sys.version_info.major >= 3 and not isinstance(value, bytes):
+      value = bytes(value, 'ascii')
     if self._saved_fd is None:
       os.write(self._redirect_fd, value)
     else:
