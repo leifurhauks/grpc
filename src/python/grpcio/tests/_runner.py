@@ -227,7 +227,7 @@ class Runner(object):
     sys.stdout.write(result_out.getvalue())
     sys.stdout.flush()
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    with open('report.xml', 'w') as report_xml_file:
+    with open('report.xml', 'wb') as report_xml_file:
       _result.jenkins_junit_xml(result).write(report_xml_file)
     return result
 
