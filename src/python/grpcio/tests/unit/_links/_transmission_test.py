@@ -29,6 +29,7 @@
 
 """Tests transmission of tickets across gRPC-on-the-wire."""
 
+import sys
 import unittest
 
 from grpc._adapter import _intermediary_low
@@ -108,6 +109,9 @@ class TransmissionTest(test_cases.TransmissionTest, unittest.TestCase):
 class RoundTripTest(unittest.TestCase):
 
   def testZeroMessageRoundTrip(self):
+    if sys.version_info.major == 3:
+      self.fail('hangs on python3')
+
     test_operation_id = object()
     test_group = 'test package.Test Group'
     test_method = 'test method'
@@ -225,12 +229,21 @@ class RoundTripTest(unittest.TestCase):
     self.assertTrue(scenario.verify_responses(observed_responses))
 
   def testEmptyScenario(self):
+    if sys.version_info.major == 3:
+      self.fail("_transmission_test.testEmptpyScenario hangs on py3")
+
     self._perform_scenario_test(_proto_scenarios.EmptyScenario())
 
   def testBidirectionallyUnaryScenario(self):
+    if sys.version_info.major == 3:
+      self.fail("_transmission_test.testBidriectionallyUnaryScenario hangs on py3")
+
     self._perform_scenario_test(_proto_scenarios.BidirectionallyUnaryScenario())
 
   def testBidirectionallyStreamingScenario(self):
+    if sys.version_info.major == 3:
+      self.fail("_transmission_test.testBidirectionallyStreamingScenario hangs on py3")
+
     self._perform_scenario_test(
         _proto_scenarios.BidirectionallyStreamingScenario())
 

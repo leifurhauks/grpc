@@ -31,6 +31,7 @@
 
 # unittest is referenced from specification in this module.
 import abc
+import sys
 import unittest  # pylint: disable=unused-import
 
 from grpc.framework.interfaces.links import links
@@ -285,6 +286,9 @@ class TransmissionTest(object):
 
   def testSimplestRoundTrip(self):
     """Tests transmission of one ticket in each direction."""
+    if sys.version_info.major == 3:
+      self.fail('hangs on python 3')
+
     invocation_operation_id = object()
     invocation_payload = b'\x07' * 1023
     timeout = test_constants.LONG_TIMEOUT
