@@ -1,4 +1,4 @@
-# Copyright 2015, Google Inc.
+# Copyright 2015-2016, Google Inc.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -202,7 +202,7 @@ class AugmentedResult(unittest.TestResult):
     """
     case_id = self.id_map(test)
     self.cases[case_id] = self.cases[case_id].updated(
-        stdout=stdout, stderr=stderr)
+        stdout=stdout.decode(), stderr=stderr.decode())
 
   def augmented_results(self, filter):
     """Convenience method to retrieve filtered case results.
