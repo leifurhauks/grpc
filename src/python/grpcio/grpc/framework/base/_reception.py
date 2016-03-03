@@ -31,6 +31,8 @@
 
 import abc
 
+import six
+
 from grpc.framework.base import interfaces
 from grpc.framework.base import _interfaces
 
@@ -40,9 +42,9 @@ _INITIAL_FRONT_TO_BACK_TICKET_KINDS = (
 )
 
 
+@six.add_metaclass(abc.ABCMeta)
 class _Receiver(object):
   """Common specification of different ticket-handling behavior."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def abort_if_abortive(self, ticket):

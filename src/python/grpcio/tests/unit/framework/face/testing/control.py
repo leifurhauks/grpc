@@ -33,7 +33,10 @@ import abc
 import contextlib
 import threading
 
+import six
 
+
+@six.add_metaclass(abc.ABCMeta)
 class Control(object):
   """An object that accepts program control from a system under test.
 
@@ -42,8 +45,6 @@ class Control(object):
   exception, or do nothing, all according to the enclosing test's desire for
   the system under test to simulate hanging, failing, or functioning.
   """
-
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def control(self):

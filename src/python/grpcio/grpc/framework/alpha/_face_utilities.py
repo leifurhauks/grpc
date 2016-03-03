@@ -47,6 +47,7 @@ def _qualified_name(service_name, method_name):
 # TODO(nathaniel): This structure is getting bloated; it could be shrunk if
 # implementations._Stub used a generic rather than a dynamic underlying
 # face-layer stub.
+@six.add_metaclass(abc.ABCMeta)
 class InvocationBreakdown(object):
   """An intermediate representation of invocation-side views of RPC methods.
 
@@ -63,7 +64,6 @@ class InvocationBreakdown(object):
       to callable behavior to be used deserializing response values for the
       RPC.
   """
-  __metaclass__ = abc.ABCMeta
 
 
 class _EasyInvocationBreakdown(
@@ -75,6 +75,7 @@ class _EasyInvocationBreakdown(
   pass
 
 
+@six.add_metaclass(abc.ABCMeta)
 class ServiceBreakdown(object):
   """An intermediate representation of service-side views of RPC methods.
 
@@ -86,7 +87,6 @@ class ServiceBreakdown(object):
     response_serializers: A dictionary from service-qualified RPC method name
       to callable behavior to be used serializing response values for the RPC.
   """
-  __metaclass__ = abc.ABCMeta
 
 
 class _EasyServiceBreakdown(

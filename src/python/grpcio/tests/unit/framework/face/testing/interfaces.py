@@ -31,13 +31,15 @@
 
 import abc
 
+import six
+
 # cardinality is referenced from specification in this module.
 from grpc.framework.common import cardinality  # pylint: disable=unused-import
 
 
+@six.add_metaclass(abc.ABCMeta)
 class Method(object):
   """An RPC method to be used in tests of RPC implementations."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def name(self):

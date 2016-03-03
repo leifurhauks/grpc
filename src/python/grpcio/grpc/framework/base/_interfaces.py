@@ -31,14 +31,16 @@
 
 import abc
 
+import six
+
 # interfaces is referenced from specification in this module.
 from grpc.framework.base import interfaces  # pylint: disable=unused-import
 from grpc.framework.foundation import stream
 
 
+@six.add_metaclass(abc.ABCMeta)
 class TerminationManager(object):
   """An object responsible for handling the termination of an operation."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def set_expiration_manager(self, expiration_manager):
@@ -91,9 +93,9 @@ class TerminationManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class TransmissionManager(object):
   """A manager responsible for transmitting to the other end of an operation."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def inmit(self, emission, complete):
@@ -117,9 +119,9 @@ class TransmissionManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class EmissionManager(stream.Consumer):
   """A manager of values emitted by customer code."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def set_ingestion_manager_and_expiration_manager(
@@ -166,9 +168,9 @@ class EmissionManager(stream.Consumer):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class IngestionManager(stream.Consumer):
   """A manager responsible for executing customer code."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def set_expiration_manager(self, expiration_manager):
@@ -214,9 +216,9 @@ class IngestionManager(stream.Consumer):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class ExpirationManager(object):
   """A manager responsible for aborting the operation if it runs out of time."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def change_timeout(self, timeout):
@@ -246,9 +248,9 @@ class ExpirationManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class ReceptionManager(object):
   """A manager responsible for receiving tickets from the other end."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def receive_ticket(self, ticket):
@@ -261,9 +263,9 @@ class ReceptionManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class CancellationManager(object):
   """A manager of operation cancellation."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def cancel(self):

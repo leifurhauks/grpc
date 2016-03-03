@@ -31,9 +31,12 @@
 
 import abc
 
+import six
+
 from grpc.framework.interfaces.base import base
 
 
+@six.add_metaclass(abc.ABCMeta)
 class TerminationManager(object):
   """An object responsible for handling the termination of an operation.
 
@@ -41,7 +44,6 @@ class TerminationManager(object):
     outcome: None if the operation is active or a base.Outcome value if it has
       terminated.
   """
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def add_callback(self, callback):
@@ -105,9 +107,9 @@ class TerminationManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class TransmissionManager(object):
   """A manager responsible for transmitting to the other end of an operation."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def kick_off(
@@ -171,9 +173,9 @@ class TransmissionManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class ExpirationManager(object):
   """A manager responsible for aborting the operation if it runs out of time."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def change_timeout(self, timeout):
@@ -203,9 +205,9 @@ class ExpirationManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class ProtocolManager(object):
   """A manager of protocol-specific values passing through an operation."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def set_protocol_receiver(self, protocol_receiver):
@@ -228,9 +230,9 @@ class ProtocolManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class EmissionManager(base.Operator):
   """A manager of values emitted by customer code."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def advance(
@@ -254,6 +256,7 @@ class EmissionManager(base.Operator):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class IngestionManager(object):
   """A manager responsible for executing customer code.
 
@@ -261,7 +264,6 @@ class IngestionManager(object):
   values from the other side of the operation into the code of the local
   customer.
   """
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def set_group_and_method(self, group, method):
@@ -294,9 +296,9 @@ class IngestionManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class ReceptionManager(object):
   """A manager responsible for receiving tickets from the other end."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def receive_ticket(self, ticket):
@@ -308,6 +310,7 @@ class ReceptionManager(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class Operation(object):
   """An ongoing operation.
 
@@ -316,7 +319,6 @@ class Operation(object):
     operator: A base.Operator object for the operation for use by the customer
       of the operation.
   """
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def handle_ticket(self, ticket):

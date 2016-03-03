@@ -32,6 +32,8 @@
 import abc
 import enum
 
+import six
+
 # cardinality, style, exceptions, abandonment, future, and stream are
 # referenced from specification in this module.
 from grpc.framework.common import cardinality  # pylint: disable=unused-import
@@ -52,14 +54,18 @@ class Abortion(enum.Enum):
   SERVICER_FAILURE = 'servicer failure'
 
 
+@six.add_metaclass(abc.ABCMeta)
 class CancellableIterator(object):
   """Implements the Iterator protocol and affords a cancel method."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __iter__(self):
     """Returns the self object in accordance with the Iterator protocol."""
     raise NotImplementedError()
+
+  def __next__(self):
+    # py3 iterator interface
+    return self.next()
 
   @abc.abstractmethod
   def next(self):
@@ -72,9 +78,9 @@ class CancellableIterator(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class RpcContext(object):
   """Provides RPC-related information and action."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def is_active(self):
@@ -103,13 +109,13 @@ class RpcContext(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class Call(object):
   """Invocation-side representation of an RPC.
 
   Attributes:
     context: An RpcContext affording information about the RPC.
   """
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def cancel(self):
@@ -117,9 +123,9 @@ class Call(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class UnaryUnaryMultiCallable(object):
   """Affords invoking a unary-unary RPC in any call style."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __call__(self, request, timeout):
@@ -171,9 +177,9 @@ class UnaryUnaryMultiCallable(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class UnaryStreamMultiCallable(object):
   """Affords invoking a unary-stream RPC in any call style."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __call__(self, request, timeout):
@@ -209,9 +215,9 @@ class UnaryStreamMultiCallable(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class StreamUnaryMultiCallable(object):
   """Affords invoking a stream-unary RPC in any call style."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __call__(self, request_iterator, timeout):
@@ -264,9 +270,9 @@ class StreamUnaryMultiCallable(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class StreamStreamMultiCallable(object):
   """Affords invoking a stream-stream RPC in any call style."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __call__(self, request_iterator, timeout):
@@ -302,6 +308,7 @@ l    Args:
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class MethodImplementation(object):
   """A sum type that describes an RPC method implementation.
 
@@ -347,12 +354,11 @@ class MethodImplementation(object):
       is cardinality.Cardinality.STREAM_STREAM and style is
       style.Service.EVENT.
   """
-  __metaclass__ = abc.ABCMeta
 
 
+@six.add_metaclass(abc.ABCMeta)
 class MultiMethodImplementation(object):
   """A general type able to service many RPC methods."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def service(self, name, response_consumer, context):
@@ -381,9 +387,9 @@ class MultiMethodImplementation(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class GenericStub(object):
   """Affords RPC methods to callers."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def blocking_value_in_value_out(self, name, request, timeout):
@@ -622,6 +628,7 @@ class GenericStub(object):
     raise NotImplementedError()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class DynamicStub(object):
   """A stub with RPC-method-bound multi-callable attributes.
 
@@ -637,4 +644,3 @@ class DynamicStub(object):
   the attribute will be a StreamStreamMultiCallable with which to invoke the
   RPC method.
   """
-  __metaclass__ = abc.ABCMeta

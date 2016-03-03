@@ -46,6 +46,7 @@ from tests.unit.framework.interfaces.face import _stock_service
 from tests.unit.framework.interfaces.face import test_interfaces  # pylint: disable=unused-import
 
 
+@six.add_metaclass(abc.ABCMeta)
 class TestCase(test_coverage.Coverage, unittest.TestCase):
   """A test of the Face layer of RPC Framework.
 
@@ -53,7 +54,6 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
   test_interfaces.Implementation and an "invoker_constructor" attribute of type
   _invocation.InvokerConstructor.
   """
-  __metaclass__ = abc.ABCMeta
 
   NAME = 'EventInvocationSynchronousEventServiceTest'
 

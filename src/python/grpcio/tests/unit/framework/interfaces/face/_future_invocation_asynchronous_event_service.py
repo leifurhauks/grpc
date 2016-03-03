@@ -69,6 +69,9 @@ class _PauseableIterator(object):
   def __iter__(self):
     return self
 
+  def __next__(self):
+    return self.next()
+
   def next(self):
     with self._condition:
       while self._paused:
@@ -106,6 +109,7 @@ class _Callback(object):
           self._condition.wait()
 
 
+@six.add_metaclass(abc.ABCMeta)
 class TestCase(test_coverage.Coverage, unittest.TestCase):
   """A test of the Face layer of RPC Framework.
 
@@ -113,7 +117,6 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
   test_interfaces.Implementation and an "invoker_constructor" attribute of type
   _invocation.InvokerConstructor.
   """
-  __metaclass__ = abc.ABCMeta
 
   NAME = 'FutureInvocationAsynchronousEventServiceTest'
 

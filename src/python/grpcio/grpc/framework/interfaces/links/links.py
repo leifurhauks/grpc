@@ -33,6 +33,8 @@ import abc
 import collections
 import enum
 
+import six
+
 
 class Protocol(collections.namedtuple('Protocol', ('kind', 'value',))):
   """A sum type for handles to a system that transmits tickets.
@@ -123,9 +125,9 @@ class Ticket(
     REMOTE_FAILURE = 'remote failure'
 
 
+@six.add_metaclass(abc.ABCMeta)
 class Link(object):
   """Accepts and emits tickets."""
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def accept_ticket(self, ticket):
