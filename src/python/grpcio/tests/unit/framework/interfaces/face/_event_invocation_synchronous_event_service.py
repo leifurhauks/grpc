@@ -32,6 +32,8 @@
 import abc
 import unittest
 
+import six
+
 # test_interfaces is referenced from specification in this module.
 from grpc.framework.interfaces.face import face
 from tests.unit.framework.common import test_constants
@@ -79,7 +81,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testSuccessfulUnaryRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -93,7 +95,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testSuccessfulUnaryRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_stream_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -107,7 +109,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testSuccessfulStreamRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         requests = test_messages.requests()
         receiver = _receiver.Receiver()
@@ -124,7 +126,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testSuccessfulStreamRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_stream_messages_sequences)):
       for test_messages in test_messages_sequence:
         requests = test_messages.requests()
         receiver = _receiver.Receiver()
@@ -142,7 +144,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
   def testSequentialInvocations(self):
     # pylint: disable=cell-var-from-loop
     for (group, method), test_messages_sequence in (
-        self._digest.unary_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         first_request = test_messages.request()
         second_request = test_messages.request()
@@ -174,7 +176,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testParallelInvocations(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         first_request = test_messages.request()
         first_receiver = _receiver.Receiver()
@@ -201,7 +203,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testCancelledUnaryRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -216,7 +218,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testCancelledUnaryRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_stream_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -230,7 +232,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testCancelledStreamRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         requests = test_messages.requests()
         receiver = _receiver.Receiver()
@@ -246,7 +248,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testCancelledStreamRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_stream_messages_sequences)):
       for unused_test_messages in test_messages_sequence:
         receiver = _receiver.Receiver()
 
@@ -259,7 +261,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testExpiredUnaryRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -274,7 +276,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testExpiredUnaryRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_stream_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -289,7 +291,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testExpiredStreamRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_unary_messages_sequences)):
       for unused_test_messages in test_messages_sequence:
         receiver = _receiver.Receiver()
 
@@ -301,7 +303,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testExpiredStreamRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_stream_messages_sequences)):
       for test_messages in test_messages_sequence:
         requests = test_messages.requests()
         receiver = _receiver.Receiver()
@@ -316,7 +318,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testFailedUnaryRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -331,7 +333,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testFailedUnaryRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.unary_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.unary_stream_messages_sequences)):
       for test_messages in test_messages_sequence:
         request = test_messages.request()
         receiver = _receiver.Receiver()
@@ -346,7 +348,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testFailedStreamRequestUnaryResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_unary_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_unary_messages_sequences)):
       for test_messages in test_messages_sequence:
         requests = test_messages.requests()
         receiver = _receiver.Receiver()
@@ -364,7 +366,7 @@ class TestCase(test_coverage.Coverage, unittest.TestCase):
 
   def testFailedStreamRequestStreamResponse(self):
     for (group, method), test_messages_sequence in (
-        self._digest.stream_stream_messages_sequences.iteritems()):
+        six.iteritems(self._digest.stream_stream_messages_sequences)):
       for test_messages in test_messages_sequence:
         requests = test_messages.requests()
         receiver = _receiver.Receiver()
