@@ -49,8 +49,6 @@ built-in-but-only-in-3.3-and-later TimeoutError.
 
 import abc
 
-import six
-
 
 class TimeoutError(Exception):
   """Indicates that a particular call timed out."""
@@ -60,13 +58,13 @@ class CancelledError(Exception):
   """Indicates that the computation underlying a Future was cancelled."""
 
 
-@six.add_metaclass(abc.ABCMeta)
 class Future(object):
   """A representation of a computation in another control flow.
 
   Computations represented by a Future may be yet to be begun, may be ongoing,
   or may have already completed.
   """
+  __metaclass__ = abc.ABCMeta
 
   # NOTE(nathaniel): This isn't the return type that I would want to have if it
   # were up to me. Were this interface being written from scratch, the return

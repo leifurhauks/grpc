@@ -32,8 +32,6 @@
 import abc
 import enum
 
-import six
-
 # exceptions is referenced from specification in this module.
 from grpc.framework.alpha import exceptions  # pylint: disable=unused-import
 from grpc.framework.foundation import activated
@@ -61,18 +59,14 @@ class Abortion(enum.Enum):
   SERVICER_FAILURE = 'servicer failure'
 
 
-@six.add_metaclass(abc.ABCMeta)
 class CancellableIterator(object):
   """Implements the Iterator protocol and affords a cancel method."""
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __iter__(self):
     """Returns the self object in accordance with the Iterator protocol."""
     raise NotImplementedError()
-
-  def __next__(self):
-    # for py3 compatibility
-    return self.next()
 
   @abc.abstractmethod
   def next(self):
@@ -85,9 +79,9 @@ class CancellableIterator(object):
     raise NotImplementedError()
 
 
-@six.add_metaclass(abc.ABCMeta)
 class RpcContext(object):
   """Provides RPC-related information and action."""
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def is_active(self):
@@ -114,7 +108,6 @@ class RpcContext(object):
     raise NotImplementedError()
 
 
-@six.add_metaclass(abc.ABCMeta)
 class UnaryUnarySyncAsync(object):
   """Affords invoking a unary-unary RPC synchronously or asynchronously.
   Values implementing this interface are directly callable and present an
@@ -124,6 +117,7 @@ class UnaryUnarySyncAsync(object):
   of a value of this type invokes its associated RPC and immediately returns a
   future.Future bound to the asynchronous execution of the RPC.
   """
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __call__(self, request, timeout):
@@ -153,7 +147,6 @@ class UnaryUnarySyncAsync(object):
     raise NotImplementedError()
 
 
-@six.add_metaclass(abc.ABCMeta)
 class StreamUnarySyncAsync(object):
   """Affords invoking a stream-unary RPC synchronously or asynchronously.
   Values implementing this interface are directly callable and present an
@@ -163,6 +156,7 @@ class StreamUnarySyncAsync(object):
   of a value of this type invokes its associated RPC and immediately returns a
   future.Future bound to the asynchronous execution of the RPC.
   """
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __call__(self, request_iterator, timeout):
@@ -197,9 +191,9 @@ class StreamUnarySyncAsync(object):
     raise NotImplementedError()
 
 
-@six.add_metaclass(abc.ABCMeta)
 class RpcMethodDescription(object):
   """A type for the common aspects of RPC method descriptions."""
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def cardinality(self):
@@ -213,9 +207,9 @@ class RpcMethodDescription(object):
     raise NotImplementedError()
 
 
-@six.add_metaclass(abc.ABCMeta)
 class RpcMethodInvocationDescription(RpcMethodDescription):
   """Invocation-side description of an RPC method."""
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def serialize_request(self, request):
@@ -246,9 +240,9 @@ class RpcMethodInvocationDescription(RpcMethodDescription):
     raise NotImplementedError()
 
 
-@six.add_metaclass(abc.ABCMeta)
 class RpcMethodServiceDescription(RpcMethodDescription):
   """Service-side description of an RPC method."""
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def deserialize_request(self, serialized_request):
@@ -351,7 +345,6 @@ class RpcMethodServiceDescription(RpcMethodDescription):
     raise NotImplementedError()
 
 
-@six.add_metaclass(abc.ABCMeta)
 class Stub(object):
   """A stub with callable RPC method names for attributes.
 
@@ -376,11 +369,12 @@ class Stub(object):
   exceptions.RpcError, exceptions.CancellationError,
   and exceptions.ExpirationError.
   """
+  __metaclass__ = abc.ABCMeta
 
 
-@six.add_metaclass(abc.ABCMeta)
 class Server(activated.Activated):
   """A GRPC Server."""
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def port(self):

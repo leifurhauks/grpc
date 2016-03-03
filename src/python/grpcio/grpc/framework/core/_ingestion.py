@@ -33,8 +33,6 @@ import abc
 import collections
 import enum
 
-import six
-
 from grpc.framework.core import _constants
 from grpc.framework.core import _interfaces
 from grpc.framework.core import _utilities
@@ -72,9 +70,9 @@ class _SubscriptionCreation(
     ABANDONED = 'abandoned'
 
 
-@six.add_metaclass(abc.ABCMeta)
 class _SubscriptionCreator(object):
   """Common specification of subscription-creating behavior."""
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def create(self, group, method):

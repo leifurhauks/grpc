@@ -31,20 +31,18 @@
 
 import abc
 
-import six
-
 # face_interfaces and interfaces are referenced in specification in this module.
 from grpc.framework.face import interfaces as face_interfaces  # pylint: disable=unused-import
 from tests.unit.framework.face.testing import interfaces  # pylint: disable=unused-import
 
 
-@six.add_metaclass(abc.ABCMeta)
 class FaceTestCase(object):
   """Describes a test of the Face Layer of RPC Framework.
 
   Concrete subclasses must also inherit from unittest.TestCase and from at least
   one class that defines test methods.
   """
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def set_up_implementation(

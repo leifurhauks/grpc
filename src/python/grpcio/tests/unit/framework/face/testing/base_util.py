@@ -31,8 +31,6 @@
 
 import abc
 
-import six
-
 # interfaces is referenced from specification in this module.
 from grpc.framework.base import util as _base_util
 from grpc.framework.base import implementations
@@ -45,7 +43,6 @@ _POOL_SIZE_LIMIT = 5
 _MAXIMUM_TIMEOUT = 90
 
 
-@six.add_metaclass(abc.ABCMeta)
 class LinkedPair(object):
   """A Front and Back that are linked to one another.
 
@@ -53,6 +50,8 @@ class LinkedPair(object):
     front: An interfaces.Front.
     back: An interfaces.Back.
   """
+
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def shut_down(self):

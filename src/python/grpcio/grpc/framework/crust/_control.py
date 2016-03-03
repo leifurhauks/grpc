@@ -405,10 +405,6 @@ class Rendezvous(base.Operator, future.Future, stream.Consumer, face.Call):
   def __iter__(self):
     return self
 
-  def __next__(self):
-    # py3 iterator interface
-    return self.next()
-
   def next(self):
     with self._condition:
       while True:

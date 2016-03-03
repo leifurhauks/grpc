@@ -44,13 +44,13 @@ from tests.unit.framework.face.testing import stock_service
 from tests.unit.framework.face.testing import test_case
 
 
-@six.add_metaclass(abc.ABCMeta)
 class BlockingInvocationInlineServiceTestCase(
     test_case.FaceTestCase, coverage.BlockingCoverage):
   """A test of the Face layer of RPC Framework.
 
   Concrete subclasses must also extend unittest.TestCase.
   """
+  __metaclass__ = abc.ABCMeta
 
   def setUp(self):
     """See unittest.TestCase.setUp for full specification.

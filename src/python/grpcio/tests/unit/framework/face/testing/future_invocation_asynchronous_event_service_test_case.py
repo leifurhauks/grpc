@@ -68,9 +68,6 @@ class _PauseableIterator(object):
   def __iter__(self):
     return self
 
-  def __next__(self):
-    return self.next()
-
   def next(self):
     with self._condition:
       while self._paused:
@@ -78,13 +75,13 @@ class _PauseableIterator(object):
     return next(self._upstream)
 
 
-@six.add_metaclass(abc.ABCMeta)
 class FutureInvocationAsynchronousEventServiceTestCase(
     test_case.FaceTestCase, coverage.FullCoverage):
   """A test of the Face layer of RPC Framework.
 
   Concrete subclasses must also extend unittest.TestCase.
   """
+  __metaclass__ = abc.ABCMeta
 
   def setUp(self):
     """See unittest.TestCase.setUp for full specification.

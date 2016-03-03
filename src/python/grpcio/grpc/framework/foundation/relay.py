@@ -33,15 +33,12 @@ import abc
 import enum
 import threading
 
-import six
-
 from grpc.framework.foundation import activated
 from grpc.framework.foundation import logging_pool
 
 _NULL_BEHAVIOR = lambda unused_value: None
 
 
-@six.add_metaclass(abc.ABCMeta)
 class Relay(object):
   """Performs work submitted to it in another thread.
 
@@ -49,6 +46,7 @@ class Relay(object):
   would be no reason to use an implementation of this interface instead of a
   thread pool.
   """
+  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def add_value(self, value):
