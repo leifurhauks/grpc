@@ -106,14 +106,13 @@ class _Callback(object):
           self._condition.wait()
 
 
-class TestCase(test_coverage.Coverage, unittest.TestCase):
+class TestCase(six.with_metaclass(abc.ABCMeta, test_coverage.Coverage, unittest.TestCase)):
   """A test of the Face layer of RPC Framework.
 
   Concrete subclasses must have an "implementation" attribute of type
   test_interfaces.Implementation and an "invoker_constructor" attribute of type
   _invocation.InvokerConstructor.
   """
-  __metaclass__ = abc.ABCMeta
 
   NAME = 'FutureInvocationAsynchronousEventServiceTest'
 

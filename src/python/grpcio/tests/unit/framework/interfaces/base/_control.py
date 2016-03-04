@@ -36,6 +36,8 @@ import random  # pylint: disable=unused-import
 import threading
 import time
 
+import six
+
 from grpc.framework.interfaces.base import base
 from tests.unit.framework.common import test_constants
 from tests.unit.framework.interfaces.base import _sequence
@@ -247,8 +249,7 @@ class Instruction(
     CONCLUDE = 'CONCLUDE'
 
 
-class Controller(object):
-  __metaclass__ = abc.ABCMeta
+class Controller(six.with_metaclass(abc.ABCMeta)):
 
   @abc.abstractmethod
   def failed(self, message):
@@ -308,8 +309,7 @@ class Controller(object):
     raise NotImplementedError()
 
 
-class ControllerCreator(object):
-  __metaclass__ = abc.ABCMeta
+class ControllerCreator(six.with_metaclass(abc.ABCMeta)):
 
   @abc.abstractmethod
   def name(self):

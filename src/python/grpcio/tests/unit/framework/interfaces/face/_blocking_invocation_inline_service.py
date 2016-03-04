@@ -48,14 +48,13 @@ from tests.unit.framework.interfaces.face import _stock_service
 from tests.unit.framework.interfaces.face import test_interfaces  # pylint: disable=unused-import
 
 
-class TestCase(test_coverage.Coverage, unittest.TestCase):
+class TestCase(six.with_metaclass(abc.ABCMeta, test_coverage.Coverage, unittest.TestCase)):
   """A test of the Face layer of RPC Framework.
 
   Concrete subclasses must have an "implementation" attribute of type
   test_interfaces.Implementation and an "invoker_constructor" attribute of type
   _invocation.InvokerConstructor.
   """
-  __metaclass__ = abc.ABCMeta
 
   NAME = 'BlockingInvocationInlineServiceTest'
 
