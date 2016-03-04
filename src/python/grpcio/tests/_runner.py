@@ -182,9 +182,9 @@ class Runner(object):
         result.stopTestRun()
         stdout_pipe.write_bypass(result_out.getvalue())
         stdout_pipe.write_bypass(
-            '\ninterrupted stdout:\n{}\n'.format(stdout_pipe.output))
+            '\ninterrupted stdout:\n{}\n'.format(stdout_pipe.output.decode()))
         stderr_pipe.write_bypass(
-            '\ninterrupted stderr:\n{}\n'.format(stderr_pipe.output))
+            '\ninterrupted stderr:\n{}\n'.format(stderr_pipe.output.decode()))
         os._exit(1)
     signal.signal(signal.SIGINT, sigint_handler)
     signal.signal(signal.SIGSEGV, fault_handler)
