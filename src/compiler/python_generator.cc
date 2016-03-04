@@ -190,11 +190,10 @@ bool PrintBetaServicer(const ServiceDescriptor* service,
         "Documentation", doc,
       });
   out->Print("\n");
-  out->Print(dict, "class Beta$Service$Servicer(object):\n");
+  out->Print(dict, "class Beta$Service$Servicer(six.with_metaclass(abc.ABCMeta, object)):\n");
   {
     IndentScope raii_class_indent(out);
     out->Print(dict, "\"\"\"$Documentation$\"\"\"\n");
-    out->Print("__metaclass__ = abc.ABCMeta\n");
     for (int i = 0; i < service->method_count(); ++i) {
       auto meth = service->method(i);
       grpc::string arg_name = meth->client_streaming() ?
@@ -219,11 +218,10 @@ bool PrintBetaStub(const ServiceDescriptor* service,
         "Documentation", doc,
       });
   out->Print("\n");
-  out->Print(dict, "class Beta$Service$Stub(object):\n");
+  out->Print(dict, "class Beta$Service$Stub(six.with_metaclass(abc.ABCMeta, object)):\n");
   {
     IndentScope raii_class_indent(out);
     out->Print(dict, "\"\"\"$Documentation$\"\"\"\n");
-    out->Print("__metaclass__ = abc.ABCMeta\n");
     for (int i = 0; i < service->method_count(); ++i) {
       const MethodDescriptor* meth = service->method(i);
       grpc::string arg_name = meth->client_streaming() ?
@@ -453,6 +451,8 @@ bool PrintPreamble(const FileDescriptor* file,
              "Package", config.beta_package_root);
   out->Print("from grpc.framework.common import cardinality\n");
   out->Print("from grpc.framework.interfaces.face import utilities as face_utilities\n");
+  out->Print("\n");
+  out->Print("import six\n");
   return true;
 }
 
