@@ -326,7 +326,7 @@ class PythonPluginTest(unittest.TestCase):
           request, test_constants.LONG_TIMEOUT)
       expected_responses = methods.StreamingOutputCall(
           request, 'not a real RpcContext!')
-      for expected_response, response in itertools.izip_longest(
+      for expected_response, response in moves.zip_longest(
           expected_responses, responses):
         self.assertEqual(expected_response, response)
 
@@ -432,7 +432,7 @@ class PythonPluginTest(unittest.TestCase):
           _full_duplex_request_iterator(test_pb2), test_constants.LONG_TIMEOUT)
       expected_responses = methods.FullDuplexCall(
           _full_duplex_request_iterator(test_pb2), 'not a real RpcContext!')
-      for expected_response, response in itertools.izip_longest(
+      for expected_response, response in moves.zip_longest(
           expected_responses, responses):
         self.assertEqual(expected_response, response)
 
@@ -487,7 +487,7 @@ class PythonPluginTest(unittest.TestCase):
           half_duplex_request_iterator(), test_constants.LONG_TIMEOUT)
       expected_responses = methods.HalfDuplexCall(
           half_duplex_request_iterator(), 'not a real RpcContext!')
-      for check in itertools.izip_longest(expected_responses, responses):
+      for check in moves.zip_longest(expected_responses, responses):
         expected_response, response = check
         self.assertEqual(expected_response, response)
 
